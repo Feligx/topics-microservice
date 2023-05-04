@@ -10,11 +10,14 @@ class topicsService {
   async getTopics(params) {
     const { name, limit, offset } = params
 
+    const count = await topicsModel.find({active: true}).count()
+
+    console.log(count)
     if (name) {
-        const topics = await topicsModel.find({ active: true, name: { $regex: name, $options: 'i' }}).limit(limit || 10).skip(offset || 0).select('-__v -active')
+        const topics = await topicsModel.find({ active: true, name: { $regex: name, $options: 'i' }}).limit(limit || 10).skip( (limit || 10) * offset || 0).select('-__v -active')
         return topics
     } else {
-      const topics = await topicsModel.find({active: true}).limit(limit || 10).skip(offset || 0).select('-__v -active')
+      const topics = await topicsModel.find({active: true}).limit(limit || 10).skip((limit || 10) * offset || 0).select('-__v -active')
       return topics
     }
   }
