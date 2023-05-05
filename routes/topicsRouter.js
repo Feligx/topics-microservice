@@ -37,7 +37,7 @@ router.get('/:id', param('id').exists().isString().isMongoId().escape() , async 
     }
 })
 
-router.put('/:id', param('id').exists().isString().isMongoId().escape(), async (req, res, next) => {
+router.put('/:id', [param('id').exists().isString().isMongoId().escape(), body('name').notEmpty().exists().isString().escape()], async (req, res, next) => {
     const validationErrors = validationResult(req)
     if (validationErrors.isEmpty()) {
         try {

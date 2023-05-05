@@ -1,6 +1,6 @@
 const express = require('express')
 const topicsRouter = require('./topicsRouter')
-const startDocs = require("../docs");
+const startDocs = require("../docs")
 
 function routerAPI(app) {
   const router = express.Router()
@@ -9,4 +9,4 @@ function routerAPI(app) {
   startDocs(router)
 }
 
-module.exports = routerAPI;
+module.exports = routerAPI
